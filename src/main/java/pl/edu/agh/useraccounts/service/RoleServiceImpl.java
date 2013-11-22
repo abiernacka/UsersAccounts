@@ -1,9 +1,11 @@
 package pl.edu.agh.useraccounts.service;
 
+import javax.jws.WebService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleServiceImpl {
+@WebService(endpointInterface = "pl.edu.agh.useraccounts.service")
+public class RoleServiceImpl implements RoleService{
 
     public int createRole(String role) {
         return 0;

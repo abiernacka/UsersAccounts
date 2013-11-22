@@ -1,8 +1,10 @@
 package pl.edu.agh.useraccounts.service;
 
+import javax.jws.WebService;
 import java.util.*;
 
-public class UsersParametersServiceImpl {
+@WebService(endpointInterface = "pl.edu.agh.useraccounts.service")
+public class UsersParametersServiceImpl implements UsersParametersService {
 
     public String getUserParam(String login, String paramKey) {
         return "userParamValue";

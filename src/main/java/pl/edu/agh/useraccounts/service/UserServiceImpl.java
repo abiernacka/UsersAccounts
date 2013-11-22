@@ -1,9 +1,11 @@
 package pl.edu.agh.useraccounts.service;
 
+import javax.jws.WebService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserServiceImpl {
+@WebService(endpointInterface = "pl.edu.agh.useraccounts.service")
+public class UserServiceImpl implements UserService{
 
     public int register(String login, String emial, String password) {
         return 0;

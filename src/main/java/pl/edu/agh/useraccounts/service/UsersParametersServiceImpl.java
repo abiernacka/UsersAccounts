@@ -1,26 +1,32 @@
 package pl.edu.agh.useraccounts.service;
 
+import pl.edu.agh.useraccounts.service.exceptions.UserException;
+
 import javax.jws.WebService;
 import java.util.*;
 
 @WebService(endpointInterface = "pl.edu.agh.useraccounts.service")
 public class UsersParametersServiceImpl implements UsersParametersService {
 
-    public String getUserParam(String login, String paramKey) {
+    @Override
+    public String getUserParam(String login, String paramKey) throws UserException {
         return "userParamValue";
     }
 
-    public Map<String, String> getUserParams(String login) {
+    @Override
+    public Map<String, String> getUserParams(String login) throws UserException {
         Map<String, String> params = new TreeMap<String, String>();
         params.put("address", "Wall Street");
         return params;
     }
 
+    @Override
     public int setUserParam(String login, String paramKey, String paramValue) {
         return 0;
     }
 
-    public List<String> getLogs(Date startTime, Date endTime) {
+    @Override
+    public List<String> getLogs(Date startTime, Date endTime) throws UserException {
         List<String> logs = new ArrayList<String>();
         logs.add("User jkowalski authorization: 12:03 12.03.2013");
         return logs;

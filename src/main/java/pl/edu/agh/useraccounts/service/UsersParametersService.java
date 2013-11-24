@@ -1,5 +1,7 @@
 package pl.edu.agh.useraccounts.service;
 
+import pl.edu.agh.useraccounts.service.exceptions.UserException;
+
 import javax.jws.WebService;
 import java.util.Date;
 import java.util.List;
@@ -8,12 +10,39 @@ import java.util.Map;
 @WebService
 public interface UsersParametersService {
 
-    public String getUserParam(String login, String paramKey);
+    /**
+     * Pobranie wartości parametru użytkownika o loginie. Parametr jest określany przez podany klucz.
+     * @param login Login użytkownika
+     * @param paramKey Klucz parametru użytkownika
+     * @return Wartość danego parametru
+     * @throws UserException Wyjątek zawierający kod błędu (1 - użytkownik o podanym loginie nie istenije, 2 - użytkownik nie ma przypisanego parametru o podanym kluczu)
+     */
+    public String getUserParam(String login, String paramKey) throws UserException;
 
-    public Map<String, String> getUserParams(String login);
+    /**
+     * Pobranie parametrów użytkownika jako mapy klucz-wartość.
+     * @param login Login użytkownika
+     * @return Mapa parametrów użytkownika
+     * @throws UserException Wyjątek z kodem błędu (1 - niepoprawny login)
+     */
+    public Map<String, String> getUserParams(String login) throws UserException;
 
+    /**
+     * Nadanie użytownikowi nowego parametru. Jeśli użytkownik miał już dany parametr do zostaje mu przypisana nowa wartość, jeśli parametr nie istniał to zostanie utworzony.
+     * @param login Login użytkownika
+     * @param paramKey Klucz parametru
+     * @param paramValue Wartość dla parametru
+     * @return Rezulatat (0 lub kod błędu)
+     */
     public int setUserParam(String login, String paramKey, String paramValue);
 
-    public List<String> getLogs(Date startTime, Date endTime);
+    /**
+     * Pobranie listy logów systemowych w podanym zakresie czasowym.
+     * @param startTime Początek zakersu czasowego pobieranych logów
+     * @param endTime Koniec zakresu czasowego podanych logów
+     * @return Lista logów
+     * @throws UserException Wyjątek z kodem błędu (niepoprany format lub zakres dat)
+     */
+    public List<String> getLogs(Date startTime, Date endTime) throws UserException;
 
 }

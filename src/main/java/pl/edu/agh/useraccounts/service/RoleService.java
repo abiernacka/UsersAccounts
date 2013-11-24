@@ -1,5 +1,7 @@
 package pl.edu.agh.useraccounts.service;
 
+import pl.edu.agh.useraccounts.service.exceptions.UserException;
+
 import javax.jws.WebService;
 import java.util.List;
 
@@ -47,11 +49,12 @@ public interface RoleService {
     public int revokeRole(String login, String role);
 
     /**
-     * Pobieranie listy ról użytkownika.Jeśli dany login nie istanie lub użytkownik nie ma przypisanych żadnych ról zwracana jest pusta lista.
+     * Pobieranie listy ról użytkownika.
      * @param login Login użytkownika
-     * @return Rezultat (zero lub kod błędu)
+     * @return Lista ról użytkownika
+     * @throws UserException Wyjątek zawierający kod błędu (1 - użytkownik o podanym loginie nie istenije).
      */
-    public List<String> getUserRoles(String login);
+    public List<String> getUserRoles(String login) throws UserException;
 
     /**
      * Pobranie listy wszystkich ról w systemie.

@@ -6,8 +6,12 @@ import javax.jws.WebService;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.ejb.Stateless;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 
-@WebService
+@WebService(name = "UsersParametersService")
+//@Stateless
 public interface UsersParametersService {
 
     /**
@@ -17,7 +21,8 @@ public interface UsersParametersService {
      * @return Wartość danego parametru
      * @throws UserException Wyjątek zawierający kod błędu (1 - użytkownik o podanym loginie nie istenije, 2 - użytkownik nie ma przypisanego parametru o podanym kluczu)
      */
-    public String getUserParam(String login, String paramKey) throws UserException;
+    @WebMethod(operationName = "getUserParam")
+    public String getUserParam(@WebParam(name = "login")String login, @WebParam(name = "paramKey")String paramKey) throws UserException;
 
     /**
      * Pobranie parametrów użytkownika jako mapy klucz-wartość.
@@ -25,7 +30,8 @@ public interface UsersParametersService {
      * @return Mapa parametrów użytkownika
      * @throws UserException Wyjątek z kodem błędu (1 - niepoprawny login)
      */
-    public Map<String, String> getUserParams(String login) throws UserException;
+    @WebMethod(operationName = "getUserParams")
+    public Map<String, String> getUserParams(@WebParam(name = "login")String login) throws UserException;
 
     /**
      * Nadanie użytownikowi nowego parametru. Jeśli użytkownik miał już dany parametr do zostaje mu przypisana nowa wartość, jeśli parametr nie istniał to zostanie utworzony.
@@ -34,7 +40,8 @@ public interface UsersParametersService {
      * @param paramValue Wartość dla parametru
      * @return Rezulatat (0 lub kod błędu)
      */
-    public int setUserParam(String login, String paramKey, String paramValue);
+    @WebMethod(operationName = "setUserParam")
+    public int setUserParam(@WebParam(name = "login")String login, @WebParam(name = "paramKey")String paramKey, @WebParam(name = "paramValue")String paramValue);
 
     /**
      * Pobranie listy logów systemowych w podanym zakresie czasowym.
@@ -43,6 +50,7 @@ public interface UsersParametersService {
      * @return Lista logów
      * @throws UserException Wyjątek z kodem błędu (niepoprany format lub zakres dat)
      */
-    public List<String> getLogs(Date startTime, Date endTime) throws UserException;
+    @WebMethod(operationName = "getLogs")
+    public List<String> getLogs(@WebParam(name = "startTime")Date startTime, @WebParam(name = "endTime")Date endTime) throws UserException;
 
 }

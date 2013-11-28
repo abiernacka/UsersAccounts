@@ -6,7 +6,7 @@ import javax.jws.WebService;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebService(endpointInterface = "pl.edu.agh.useraccounts.service")
+@WebService(endpointInterface = "pl.edu.agh.useraccounts.service.UserService")
 public class UserServiceImpl implements UserService{
 
     @Override

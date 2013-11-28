@@ -5,7 +5,7 @@ import pl.edu.agh.useraccounts.service.exceptions.UserException;
 import javax.jws.WebService;
 import java.util.*;
 
-@WebService(endpointInterface = "pl.edu.agh.useraccounts.service")
+@WebService(endpointInterface = "pl.edu.agh.useraccounts.service.UsersParametersService")
 public class UsersParametersServiceImpl implements UsersParametersService {
 
     @Override

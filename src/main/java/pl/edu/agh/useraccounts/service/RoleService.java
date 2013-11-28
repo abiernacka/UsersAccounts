@@ -4,9 +4,13 @@ import pl.edu.agh.useraccounts.service.exceptions.UserException;
 
 import javax.jws.WebService;
 import java.util.List;
+import javax.ejb.Stateful;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 
 
-@WebService
+@WebService(name = "RoleService")
+///@Stateful
 public interface RoleService {
 
     /**
@@ -15,7 +19,8 @@ public interface RoleService {
      * @param role Nazwa nowej roli
      * @return Rezultat (zero lub kod błędu)
      */
-    public int createRole(String role);
+    @WebMethod(operationName = "createRole")
+    public int createRole(@WebParam(name = "role")String role);
 
     /**
      * Usunięcie roli z systemu. Jednocześnie użytkonicy, którzy mieli przypisaną daną rolę tracą ją.
@@ -23,7 +28,8 @@ public interface RoleService {
      * @param role Nazwa roli do usunięcia
      * @return Rezultat (zero lub kod błędu)
      */
-    public int removeRole(String role);
+    @WebMethod(operationName = "removeRole")
+    public int removeRole(@WebParam(name = "role")String role);
 
     /**
      * Dodanie użytkownikowi danej roli (jeśli użytkownik miał już nadaną podaną rolę zwracane jest 0).
@@ -34,7 +40,8 @@ public interface RoleService {
      * @param role Rola (nazwa roli) jaka ma być nadana użytkownikowi
      * @return Rezultat (zero lub kod błędu)
      */
-    public int addRole(String login, String role);
+    @WebMethod(operationName = "addRole")
+    public int addRole(@WebParam(name = "login")String login, @WebParam(name = "role")String role);
 
     /**
      * Odbieranie użytkownikowi danej roli.
@@ -46,7 +53,8 @@ public interface RoleService {
      * @param role Rola (nazwa roli) jaka ma być nadana użytkownikowi
      * @return Rezultat (zero lub kod błędu)
      */
-    public int revokeRole(String login, String role);
+    @WebMethod(operationName = "revokeRole")
+    public int revokeRole(@WebParam(name = "login")String login, @WebParam(name = "role")String role);
 
     /**
      * Pobieranie listy ról użytkownika.
@@ -54,11 +62,13 @@ public interface RoleService {
      * @return Lista ról użytkownika
      * @throws UserException Wyjątek zawierający kod błędu (1 - użytkownik o podanym loginie nie istenije).
      */
-    public List<String> getUserRoles(String login) throws UserException;
+    @WebMethod(operationName = "getUserRole")
+    public List<String> getUserRoles(@WebParam(name = "login")String login) throws UserException;
 
     /**
      * Pobranie listy wszystkich ról w systemie.
      * @return Lista wszystkich ról w systemie
      */
+    @WebMethod(operationName = "getAllRoles")
     public List<String> getAllRoles();
 }

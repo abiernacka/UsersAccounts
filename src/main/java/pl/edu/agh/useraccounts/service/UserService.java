@@ -4,8 +4,12 @@ import pl.edu.agh.useraccounts.service.exceptions.UserException;
 
 import javax.jws.WebService;
 import java.util.List;
+import javax.ejb.Stateless;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 
-@WebService
+@WebService(name = "UserService")
+//@Stateless
 public interface UserService {
 
     /**
@@ -27,7 +31,8 @@ public interface UserService {
      * @param password Hasło nowego użytkownika
      * @return Rezultat (0 lub kod błędu)
      */
-    public int register(String login, String emial, String password);
+    @WebMethod(operationName = "register")
+    public int register(@WebParam(name = "login")String login, @WebParam(name="email")String emial, @WebParam(name="password")String password);
 
     /**
      * Sprawdzanie autoryzacji użytkownika, tzn. czy istnieje użytkownik o podanym loginie i haśle.
@@ -38,12 +43,14 @@ public interface UserService {
      * @param password Hasło
      * @return Rezultat (0 lub kod błędu)
      */
-    public int authorization(String login, String password);
+    @WebMethod(operationName = "authorization")
+    public int authorization(@WebParam(name = "login")String login, @WebParam(name="password")String password);
 
     /**
      * Pobieranie listy użytkowników systemu.
      * @return Lista użytkowników
      */
+    @WebMethod(operationName = "getUsers")
     public List<String> getUsers();
 
     /**
@@ -52,7 +59,8 @@ public interface UserService {
      * @param login Login użytkownika
      * @return Rezultat (0 lub kod błędu)
      */
-    public int remindPassword(String login);
+    @WebMethod(operationName = "remindPassword")
+    public int remindPassword(@WebParam(name = "login")String login);
 
     /**
      * Zmiana hasła użtykownika. Zwraca 0 w przypadku powodzenia, w przypadku niepowodzenia:
@@ -65,7 +73,8 @@ public interface UserService {
      * @param newPassword Nowe hasło
      * @return Rezultat (0 lub kod błędu)
      */
-    public int changePassword(String login, String oldPassword, String newPassword);
+    @WebMethod(operationName = "changePassword")
+    public int changePassword(@WebParam(name = "login")String login, @WebParam(name="oldPassword")String oldPassword, @WebParam(name="newPassword")String newPassword);
 
     /**
      * Zmiana adresu e-mail użytkownika. Zwraca 0 w przypadku powodzenia,w przypadku niepowodzenia:
@@ -75,14 +84,16 @@ public interface UserService {
      * @param emial Adres e-mail użytkownika
      * @return Rezultat (0 lub kod błędu)
      */
-    public int changeEmail(String login, String emial);
+    @WebMethod(operationName = "changeEmail")
+    public int changeEmail(@WebParam(name = "login")String login, @WebParam(name="email")String emial);
 
     /**
      * Usunięcie użytkownika. Zwraca 0 w przypadku powodzenia lub 1 w przypadku nieistnienia użytkownika o podanym loginie.
      * @param login Login użytkownika
      * @return Rezultat (0 lub kod błędu)
      */
-    public int removeUser(String login);
+    @WebMethod(operationName = "removeUser")
+    public int removeUser(@WebParam(name = "login")String login);
 
 
 }

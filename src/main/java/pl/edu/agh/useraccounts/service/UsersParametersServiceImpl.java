@@ -1,6 +1,7 @@
 package pl.edu.agh.useraccounts.service;
 
 import pl.edu.agh.useraccounts.service.exceptions.UserException;
+import pl.edu.agh.useraccounts.service.model.Parameters;
 
 import javax.jws.WebService;
 import java.util.*;
@@ -14,9 +15,12 @@ public class UsersParametersServiceImpl implements UsersParametersService {
     }
 
     @Override
-    public HashMap<String, String> getUserParams(String login) throws UserException {
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("address", "Wall Street");
+    public Parameters getUserParams(String login) throws UserException {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("address", "Wall Street");
+        map.put("lastpassword", "zaq123");
+        Parameters params = new Parameters();
+        params.setMap(map);
         return params;
     }
 

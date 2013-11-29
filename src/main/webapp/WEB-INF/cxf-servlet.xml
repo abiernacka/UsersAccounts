@@ -4,8 +4,6 @@
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 
-    <bean id="helloWorldService" class="pl.edu.agh.useraccounts.service.HelloWorldServiceBean" />
-    <jaxws:endpoint id="helloWorld" implementor="#helloWorldService" address="/HelloWorld" />
     <jaxws:endpoint id="roleService" implementor="pl.edu.agh.useraccounts.service.RoleServiceImpl" address="/RoleService"/>
     <jaxws:endpoint id="userService" implementor="pl.edu.agh.useraccounts.service.UserServiceImpl" address="/UserService"/>
     <jaxws:endpoint id="UsersParametersService" implementor="pl.edu.agh.useraccounts.service.UsersParametersServiceImpl" address="/UsersParametersService"/>

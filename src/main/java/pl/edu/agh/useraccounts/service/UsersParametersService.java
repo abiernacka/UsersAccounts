@@ -11,6 +11,9 @@ import java.util.Map;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
+/**
+ * Serwis zarządzania parametrami użytkownika (interfejs)
+ */
 @WebService(name = "UsersParametersService")
 public interface UsersParametersService {
 

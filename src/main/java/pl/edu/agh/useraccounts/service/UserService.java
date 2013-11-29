@@ -7,6 +7,9 @@ import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
+/**
+ * Serwis zarządzania kontem użytkownika (interfejs)
+ */
 @WebService(name = "UserService")
 public interface UserService {
 

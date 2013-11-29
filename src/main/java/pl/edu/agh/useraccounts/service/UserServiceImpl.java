@@ -6,6 +6,9 @@ import javax.jws.WebService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *Implementacja serwisu zarządzania kontem użytkownika
+ */
 @WebService(endpointInterface = "pl.edu.agh.useraccounts.service.UserService")
 public class UserServiceImpl implements UserService{
 
@@ -23,6 +26,7 @@ public class UserServiceImpl implements UserService{
     public List<String> getUsers() {
         List<String> users = new ArrayList<String>();
         users.add("jkowalski");
+        users.add("jkowalska");
         return users;
     }
 

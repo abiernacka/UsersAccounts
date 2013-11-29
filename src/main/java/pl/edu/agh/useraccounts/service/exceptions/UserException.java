@@ -1,5 +1,8 @@
 package pl.edu.agh.useraccounts.service.exceptions;
 
+/**
+ * Wyjątek przy zarządzaniu kontem użytkownika, zawiera kod błędu.
+ */
 public class UserException extends Exception {
     private int exceptionCode;
 

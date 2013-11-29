@@ -7,7 +7,9 @@ import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
-
+/**
+ * Serwis zarządzania rolami użytkownika (interfejs)
+ */
 @WebService(name = "RoleService")
 public interface RoleService {
 

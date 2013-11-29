@@ -6,6 +6,9 @@ import javax.jws.WebService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementacja serwisu zarządzania rolami użytkownika
+ */
 @WebService(endpointInterface = "pl.edu.agh.useraccounts.service.RoleService")
 public class RoleServiceImpl implements RoleService{
 
@@ -33,6 +36,7 @@ public class RoleServiceImpl implements RoleService{
     public List<String> getUserRoles(String login) throws UserException {
         List<String> roles = new ArrayList<String>();
         roles.add("admin");
+        roles.add("super user");
         return roles;
     }
 
@@ -40,6 +44,7 @@ public class RoleServiceImpl implements RoleService{
     public List<String> getAllRoles() {
         List<String> roles = new ArrayList<String>();
         roles.add("admin");
+        roles.add("super user");
         return roles;
     }
 }

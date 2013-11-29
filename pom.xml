@@ -17,6 +17,7 @@
         <context.path>userAccounts</context.path>
 		<hibernate.version>4.1.7.Final</hibernate.version>
         <freemarker.version>2.3.14</freemarker.version>
+         <cxf.version>2.7.7</cxf.version>
     </properties>
     <build>
         <resources>
@@ -42,62 +43,75 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-<plugin>
-    <groupId>org.apache.cxf</groupId>
-    <artifactId>cxf-java2ws-plugin</artifactId>
-    <version>2.7.7</version>
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-jaxws</artifactId>
-            <version>2.7.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-simple</artifactId>
-            <version>2.7.7</version>
-        </dependency>
-    </dependencies>
- 
-    <executions>
-        <execution>
-            <id>process-classes1</id>
-            <phase>process-classes</phase>
-            <configuration>
-                <className>pl.edu.agh.useraccounts.service.RoleServiceImpl</className>
-                <genWsdl>true</genWsdl>
-                <verbose>true</verbose>
-            </configuration>
-            <goals>
-                <goal>java2ws</goal>
-            </goals>
-        </execution>
-        <execution>
-            <id>process-classes2</id>
-            <phase>process-classes</phase>
-            <configuration>
-                <className>pl.edu.agh.useraccounts.service.UserServiceImpl</className>
-                <genWsdl>true</genWsdl>
-                <verbose>true</verbose>
-            </configuration>
-            <goals>
-                <goal>java2ws</goal>
-            </goals>
-        </execution>
-        <execution>
-            <id>process-classes3</id>
-            <phase>process-classes</phase>
-            <configuration>
-                <className>pl.edu.agh.useraccounts.service.UsersParametersServiceImpl</className>
-                <genWsdl>true</genWsdl>
-                <verbose>true</verbose>
-            </configuration>
-            <goals>
-                <goal>java2ws</goal>
-            </goals>
-        </execution>
-    </executions>
-</plugin>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-java2ws-plugin</artifactId>
+                <version>${cxf.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.cxf</groupId>
+                        <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                        <version>2.7.7</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.cxf</groupId>
+                        <artifactId>cxf-rt-frontend-simple</artifactId>
+                        <version>2.7.7</version>
+                    </dependency>
+                </dependencies>
+
+                <executions>
+                    <execution>
+                        <id>process-classes1</id>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <className>pl.edu.agh.useraccounts.service.RoleServiceImpl</className>
+                            <genWsdl>true</genWsdl>
+                            <verbose>true</verbose>
+                        </configuration>
+                        <goals>
+                            <goal>java2ws</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>process-classes2</id>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <className>pl.edu.agh.useraccounts.service.UserServiceImpl</className>
+                            <genWsdl>true</genWsdl>
+                            <verbose>true</verbose>
+                        </configuration>
+                        <goals>
+                            <goal>java2ws</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>process-classes3</id>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <className>pl.edu.agh.useraccounts.service.UsersParametersServiceImpl</className>
+                            <genWsdl>true</genWsdl>
+                            <verbose>true</verbose>
+                        </configuration>
+                        <goals>
+                            <goal>java2ws</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>process-classes</id>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <className>pl.edu.agh.useraccounts.service.HelloWorldService</className>
+                            <genWsdl>true</genWsdl>
+                            <verbose>true</verbose>
+                            <attachWsdl>true</attachWsdl>
+                        </configuration>
+                        <goals>
+                            <goal>java2ws</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -198,6 +212,35 @@
             <version>1.8.6</version>
         </dependency>
         <!-- End of Quartz -->
+        <!-- Apache CXF for webservices -->
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-api</artifactId>
+            <version>${cxf.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-bindings-soap</artifactId>
+            <version>2.7.7</version>
+        </dependency>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
@@ -251,5 +294,4 @@
             <version>2.7.7</version>
         </dependency>
     </dependencies>
-
 </project>

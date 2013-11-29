@@ -4,6 +4,7 @@ import pl.edu.agh.useraccounts.service.exceptions.UserException;
 
 import javax.jws.WebService;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.jws.WebMethod;
@@ -29,7 +30,7 @@ public interface UsersParametersService {
      * @throws UserException Wyjątek z kodem błędu (1 - niepoprawny login)
      */
     @WebMethod(operationName = "getUserParams")
-    public Map<String, String> getUserParams(@WebParam(name = "login")String login) throws UserException;
+    public HashMap<String, String> getUserParams(@WebParam(name = "login")String login) throws UserException;
 
     /**
      * Nadanie użytownikowi nowego parametru. Jeśli użytkownik miał już dany parametr do zostaje mu przypisana nowa wartość, jeśli parametr nie istniał to zostanie utworzony.

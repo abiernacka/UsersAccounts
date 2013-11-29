@@ -14,8 +14,8 @@ public class UsersParametersServiceImpl implements UsersParametersService {
     }
 
     @Override
-    public Map<String, String> getUserParams(String login) throws UserException {
-        Map<String, String> params = new TreeMap<String, String>();
+    public HashMap<String, String> getUserParams(String login) throws UserException {
+        HashMap<String, String> params = new HashMap<String, String>();
         params.put("address", "Wall Street");
         return params;
     }

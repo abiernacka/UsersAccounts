@@ -4,12 +4,10 @@ import pl.edu.agh.useraccounts.service.exceptions.UserException;
 
 import javax.jws.WebService;
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
 @WebService(name = "UserService")
-//@Stateless
 public interface UserService {
 
     /**

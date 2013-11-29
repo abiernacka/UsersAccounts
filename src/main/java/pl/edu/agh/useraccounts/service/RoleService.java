@@ -4,13 +4,11 @@ import pl.edu.agh.useraccounts.service.exceptions.UserException;
 
 import javax.jws.WebService;
 import java.util.List;
-import javax.ejb.Stateful;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
 
 @WebService(name = "RoleService")
-///@Stateful
 public interface RoleService {
 
     /**

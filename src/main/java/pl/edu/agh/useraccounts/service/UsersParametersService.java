@@ -6,12 +6,10 @@ import javax.jws.WebService;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
 @WebService(name = "UsersParametersService")
-//@Stateless
 public interface UsersParametersService {
 
     /**

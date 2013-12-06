@@ -21,4 +21,5 @@
 
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 
+    <import resource="hibernate.cfg.xml" />
 </beans>

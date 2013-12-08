@@ -32,11 +32,11 @@ public class RoleDaoTest {
         role.setName("TEST_ROLE1");
         roleDao.save(role);
 
-        List<Role> roles = roleDao.getAllRoles();
+        List<String> roles = roleDao.getAllRoles();
         Assert.assertEquals(1, roles.size());
-        Assert.assertEquals("TEST_ROLE1", roles.get(0).getName());
+        Assert.assertEquals("TEST_ROLE1", roles.get(0));
 
-        roleDao.delete(roles.get(0));
+        roleDao.delete(role);
         roles = roleDao.getAllRoles();
         Assert.assertEquals(0, roles.size());
     }

@@ -11,5 +11,14 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface RoleDao extends BaseDao<Role> {
-    List<Role> getAllRoles();
+    List<String> getAllRoles();
+    boolean createRole(String roleName);
+    boolean removeRole(String roleName);
+    boolean roleExists(String roleName);
+    boolean addRole(String login, String roleName);
+    boolean revoke(String login, String role);
+    boolean hasUserRole(String login, String role);
+    List<String> getUserRoles(String login);
+
 }
+

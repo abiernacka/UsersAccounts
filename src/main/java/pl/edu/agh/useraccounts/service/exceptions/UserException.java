@@ -10,7 +10,8 @@ public class UserException extends Exception {
         return exceptionCode;
     }
 
-    public void setExceptionCode(int exceptionCode) {
+    public UserException setExceptionCode(int exceptionCode) {
         this.exceptionCode = exceptionCode;
+        return this;
     }
 }

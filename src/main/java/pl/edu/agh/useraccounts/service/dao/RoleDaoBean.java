@@ -3,6 +3,7 @@ package pl.edu.agh.useraccounts.service.dao;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.agh.useraccounts.service.model.Role;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,50 @@ public class RoleDaoBean extends BaseDaoBean<Role> implements RoleDao {
     }
 
     @Override
-    public List<Role> getAllRoles() {
-        return getSessionFactory().getCurrentSession().createQuery("from " + Role.class.getName()).list();
+    public List<String> getAllRoles() {
+        List<Role> roles = getSessionFactory().getCurrentSession().createQuery("from " + Role.class.getName()).list();
+        List<String> result = new ArrayList<String>();
+        if(roles != null) {
+            for(Role role: roles) {
+                result.add(role.getName());
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean createRole(String roleName) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean removeRole(String roleName) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean roleExists(String roleName) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean addRole(String login, String roleName) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean revoke(String login, String role) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean hasUserRole(String login, String role) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<String> getUserRoles(String login) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

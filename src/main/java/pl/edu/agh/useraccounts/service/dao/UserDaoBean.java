@@ -21,4 +21,9 @@ public class UserDaoBean extends BaseDaoBean<User> implements UserDao {
     public List<User> getAllUsers() {
         return getSessionFactory().getCurrentSession().createQuery("from " + User.class.getName()).list();
     }
+
+    @Override
+    public boolean userExists(String login) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

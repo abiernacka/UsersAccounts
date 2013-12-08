@@ -1,12 +1,15 @@
 package pl.edu.agh.useraccounts.service.model;
 
+import javax.persistence.Entity;
 import java.util.HashMap;
 
 /**
  * Parametry użytkownika (mapa)
  */
-public class Parameters {
-    private HashMap<String, String> map;
+@Entity
+public class Parameters extends BaseEntity {
+
+    private HashMap<String, String> map = new HashMap<String, String>();
 
     public HashMap<String, String> getMap() {
         return map;

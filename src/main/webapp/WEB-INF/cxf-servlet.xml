@@ -4,7 +4,16 @@
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 
-    <jaxws:endpoint id="roleService" implementor="pl.edu.agh.useraccounts.service.RoleServiceImpl" address="/RoleService"/>
-    <jaxws:endpoint id="userService" implementor="pl.edu.agh.useraccounts.service.UserServiceImpl" address="/UserService"/>
-    <jaxws:endpoint id="UsersParametersService" implementor="pl.edu.agh.useraccounts.service.UsersParametersServiceImpl" address="/UsersParametersService"/>
+    <bean id="roleServiceBean" class="pl.edu.agh.useraccounts.service.RoleServiceImpl">
+    </bean>
+
+    <bean id="userServiceBean" class="pl.edu.agh.useraccounts.service.UserServiceImpl">
+    </bean>
+
+    <bean id="userParamsServiceBean" class="pl.edu.agh.useraccounts.service.UsersParametersServiceImpl">
+    </bean>
+
+    <jaxws:endpoint id="roleService" implementor="#roleServiceBean" address="/RoleService"/>
+    <jaxws:endpoint id="userService" implementor="#userServiceBean" address="/UserService"/>
+    <jaxws:endpoint id="UsersParametersService" implementor="#userParamsServiceBean" address="/UsersParametersService"/>
 </beans>

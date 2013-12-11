@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pl.edu.agh.useraccounts.service.dao.RoleDao;
 import pl.edu.agh.useraccounts.service.dao.UserDao;
 import pl.edu.agh.useraccounts.service.exceptions.UserException;
+import pl.edu.agh.useraccounts.service.model.Role;
+import pl.edu.agh.useraccounts.service.model.User;
 
 import javax.jws.WebService;
 import java.util.ArrayList;
@@ -22,57 +24,89 @@ public class RoleServiceImpl implements RoleService{
     UserDao userDao;
 
     @Override
-    public int createRole(String role) {
+    public int createRole(String roleName) {
 
-        if(role == null || role.equals("")) {
+        if(roleName == null || roleName.equals("")) {
             return 1;
         }
-        return roleDao.createRole(role) ? 0 : 1;
+        if(roleDao.getRoleForName(roleName) != null) {
+            return 1;//rola już istanieje
+        } else {
+            Role role = new Role();
+            role.setName(roleName);
+            roleDao.save(role);
+            return 0;
+        }
     }
 
     @Override
-    public int removeRole(String role) {
-        if(role == null || role.equals("")) {
+    public int removeRole(String roleName) {
+        if(roleName == null || roleName.equals("")) {
             return 1;
         }
-        return roleDao.removeRole(role) ? 0 : 1;
+        if(roleDao.getRoleForName(roleName) != null) {
+            Role role = new Role();
+            role.setName(roleName);
+            roleDao.delete(role);
+            return 0;
+        } else {
+            return 1;    //rola nie istnieje
+        }
     }
 
     @Override
-    public int addRole(String login, String role) {
-        if(login == null || login.equals("") || !userDao.userExists(login)) {
+    public int addRole(String login, String roleName) {
+        User user = userDao.getUserForLogin(login);
+        if(login == null || login.equals("") || user == null) {
             return 1;
         }
-        if(role == null || role.equals("") || !roleDao.roleExists(role)) {
+        Role role = roleDao.getRoleForName(roleName);
+        if(roleName == null || roleName.equals("") || role == null) {
             return 2;
         }
-
-        return roleDao.addRole(login, role) ? 0 : 2;
+        List<Role> roles = user.getRoles();
+        roles.add(role);
+        user.setRoles(roles);
+        userDao.save(user);
+        return 0;
     }
 
     @Override
-    public int revokeRole(String login, String role) {
-        if(login == null || login.equals("") || !userDao.userExists(login)) {
-            return 1;
+    public int revokeRole(String login, String roleName) {
+        User user = userDao.getUserForLogin(login);
+        if(login == null || login.equals("") || user == null) {
+            return 1;                           //user nie istnieje
         }
-        if(role == null || role.equals("") || !roleDao.roleExists(role)) {
-            return 2;
-        }
-
-        if(!roleDao.hasUserRole(login, role)) {
-            return 3;
+        Role role = roleDao.getRoleForName(roleName);
+        if(roleName == null || roleName.equals("") || role == null) {
+            return 2;              //rola nie istnieje
         }
 
-        return roleDao.revoke(login, role) ? 0 : 2;
+        List<Role> roles = user.getRoles();
+
+        for(Role roleTmp: roles) {
+            if(roleTmp.getName().equals(roleName)) {
+                roles.remove(roleTmp);
+                user.setRoles(roles);
+                userDao.save(user);
+                return 0;
+            }
+        }
+        roles.add(role);
+        return 3;         //user nie miał danej roli
     }
 
     @Override
     public List<String> getUserRoles(String login) throws UserException {
-        if(login == null || login.equals("") || !userDao.userExists(login)) {
-            throw new UserException().setExceptionCode(1);
+        User user = userDao.getUserForLogin(login);
+        if(login == null || login.equals("") || user == null) {
+            throw new UserException().setExceptionCode(1);      //nie ma takiego usera
         }
-
-        return roleDao.getUserRoles(login);
+        List<String> roleNames = new ArrayList<String>();
+        for(Role role: user.getRoles()) {
+            roleNames.add(role.getName());
+        }
+        return roleNames;
     }
 
     @Override

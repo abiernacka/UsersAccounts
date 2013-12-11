@@ -23,7 +23,7 @@ public class UserDaoBean extends BaseDaoBean<User> implements UserDao {
     }
 
     @Override
-    public boolean userExists(String login) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public User getUserForLogin(String login) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

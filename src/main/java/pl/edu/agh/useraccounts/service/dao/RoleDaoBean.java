@@ -34,37 +34,8 @@ public class RoleDaoBean extends BaseDaoBean<Role> implements RoleDao {
     }
 
     @Override
-    public boolean createRole(String roleName) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean removeRole(String roleName) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean roleExists(String roleName) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean addRole(String login, String roleName) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean revoke(String login, String role) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean hasUserRole(String login, String role) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public List<String> getUserRoles(String login) {
+    public Role getRoleForName(String name) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
 }

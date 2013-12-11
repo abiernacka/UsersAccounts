@@ -7,6 +7,8 @@ import pl.edu.agh.useraccounts.service.dao.RoleDao;
 import junit.framework.Assert;
 import pl.edu.agh.useraccounts.service.dao.UserDao;
 import pl.edu.agh.useraccounts.service.exceptions.UserException;
+import pl.edu.agh.useraccounts.service.model.Role;
+import pl.edu.agh.useraccounts.service.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ public class RoleServiceTest {
     public void createRoleTest() {
         RoleServiceImpl roleService = new RoleServiceImpl();
         roleService.roleDao =  mock(RoleDao.class);
-        when(roleService.roleDao.createRole("admin")).thenReturn(true).thenReturn(false);
+        when(roleService.roleDao.getRoleForName("admin")).thenReturn(null).thenReturn(new Role());
         Assert.assertEquals(0, roleService.createRole("admin"));
         Assert.assertEquals(1, roleService.createRole("admin"));
         Assert.assertEquals(1, roleService.createRole(""));
@@ -38,7 +40,7 @@ public class RoleServiceTest {
     public void removeRoleTest() {
         RoleServiceImpl roleService = new RoleServiceImpl();
         roleService.roleDao =  mock(RoleDao.class);
-        when(roleService.roleDao.removeRole("administrator")).thenReturn(true).thenReturn(false);
+        when(roleService.roleDao.getRoleForName("administrator")).thenReturn(new Role()).thenReturn(null);
         Assert.assertEquals(0, roleService.removeRole("administrator"));
         Assert.assertEquals(1, roleService.removeRole("administrator"));
         Assert.assertEquals(1, roleService.removeRole(""));
@@ -50,11 +52,19 @@ public class RoleServiceTest {
         RoleServiceImpl roleService = new RoleServiceImpl();
         roleService.roleDao =  mock(RoleDao.class);
         roleService.userDao =  mock(UserDao.class);
-        when(roleService.userDao.userExists("admin")).thenReturn(true);
-        when(roleService.userDao.userExists("linda")).thenReturn(false);
-        when(roleService.roleDao.roleExists("administrator")).thenReturn(true);
-        when(roleService.roleDao.roleExists("moderator")).thenReturn(false);
-        when(roleService.roleDao.addRole("admin", "administrator")).thenReturn(true).thenReturn(false);
+        User userHasRole = new User();
+        List<Role> list = new ArrayList<Role>();
+        Role role = new Role();
+        role.setName("administrator");
+        list.add(role);
+        userHasRole.setRoles(list);
+        User userHasNotRole = new User();
+        when(roleService.userDao.getUserForLogin("admin")).thenReturn(userHasNotRole).thenReturn(userHasNotRole)
+                .thenReturn(userHasNotRole).thenReturn(userHasNotRole).thenReturn(userHasRole).thenReturn(userHasRole)
+                .thenReturn(userHasRole).thenReturn(userHasRole);
+        when(roleService.userDao.getUserForLogin("linda")).thenReturn(null);
+        when(roleService.roleDao.getRoleForName("administrator")).thenReturn(role).thenReturn(null);
+        when(roleService.roleDao.getRoleForName("moderator")).thenReturn(null);
 
         Assert.assertEquals(0, roleService.addRole("admin", "administrator"));
         Assert.assertEquals(2, roleService.addRole("admin", "administrator"));
@@ -71,12 +81,19 @@ public class RoleServiceTest {
         RoleServiceImpl roleService = new RoleServiceImpl();
         roleService.roleDao =  mock(RoleDao.class);
         roleService.userDao =  mock(UserDao.class);
-        when(roleService.userDao.userExists("admin")).thenReturn(true);
-        when(roleService.userDao.userExists("linda")).thenReturn(false);
-        when(roleService.roleDao.roleExists("administrator")).thenReturn(true);
-        when(roleService.roleDao.roleExists("moderator")).thenReturn(false);
-        when(roleService.roleDao.revoke("admin", "administrator")).thenReturn(true).thenReturn(false);
-        when(roleService.roleDao.hasUserRole("admin", "administrator")).thenReturn(true).thenReturn(false);
+        User userHasRole = new User();
+        List<Role> list = new ArrayList<Role>();
+        Role role = new Role();
+        role.setName("administrator");
+        list.add(role);
+        userHasRole.setRoles(list);
+        User userHasNotRole = new User();
+        when(roleService.userDao.getUserForLogin("admin")).thenReturn(userHasRole).thenReturn(userHasNotRole)
+                .thenReturn(userHasNotRole).thenReturn(userHasNotRole).thenReturn(userHasRole).thenReturn(userHasRole)
+                .thenReturn(userHasRole).thenReturn(userHasRole);
+        when(roleService.userDao.getUserForLogin("linda")).thenReturn(null);
+        when(roleService.roleDao.getRoleForName("administrator")).thenReturn(role).thenReturn(role);
+        when(roleService.roleDao.getRoleForName("moderator")).thenReturn(null);
 
         Assert.assertEquals(0, roleService.revokeRole("admin", "administrator"));
         Assert.assertEquals(3, roleService.revokeRole("admin", "administrator"));
@@ -88,27 +105,34 @@ public class RoleServiceTest {
         Assert.assertEquals(2, roleService.revokeRole("admin", null));
     }
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
+  @Rule
+  public ExpectedException exception = ExpectedException.none();
 
-    @Test
-    public void  getUserRoleTest() throws UserException {
-        RoleServiceImpl roleService = new RoleServiceImpl();
-        List<String> roles = new ArrayList<String>();
-        roles.add("admin");
-        roles.add("super user");
-        roleService.roleDao =  mock(RoleDao.class);
-        roleService.userDao =  mock(UserDao.class);
-        when(roleService.userDao.userExists("admin")).thenReturn(true);
-        when(roleService.userDao.userExists("linda")).thenReturn(false);
-        when(roleService.roleDao.getUserRoles("admin")).thenReturn(roles);
-        Assert.assertEquals(2, roleService.getUserRoles("admin").size());
-        exception.expect(UserException.class);
-        roleService.getUserRoles("linda");
+  @Test
+  public void  getUserRoleTest() throws UserException {
+      RoleServiceImpl roleService = new RoleServiceImpl();
+      List<String> roles = new ArrayList<String>();
+      roles.add("admin");
+      roles.add("super user");
+      roleService.roleDao =  mock(RoleDao.class);
+      roleService.userDao =  mock(UserDao.class);
+      User userHasRole = new User();
+      List<Role> list = new ArrayList<Role>();
+      Role role1 = new Role();
+      role1.setName("moderator");
+      Role role2 = new Role();
+      role2.setName("moderator");
+      list.add(role1);
+      list.add(role2);
+      userHasRole.setRoles(list);
+      when(roleService.userDao.getUserForLogin("admin")).thenReturn(userHasRole);
+      when(roleService.userDao.getUserForLogin("linda")).thenReturn(null);
+      Assert.assertEquals(2, roleService.getUserRoles("admin").size());
+      exception.expect(UserException.class);
+      roleService.getUserRoles("linda");
 
 
-    }
-
+  }
     @Test
     public void  getAllRolesTest() {
         RoleServiceImpl roleService = new RoleServiceImpl();
@@ -122,6 +146,7 @@ public class RoleServiceTest {
 
 
 }
+
 
 
 

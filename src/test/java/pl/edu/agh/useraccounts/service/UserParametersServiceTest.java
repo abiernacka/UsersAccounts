@@ -96,8 +96,8 @@ public class UserParametersServiceTest {
         Assert.assertEquals(0, userParamsService.setUserParam("admin", "name", "jkowalski"));
         Assert.assertEquals("jkowalski", userParamsService.getUserParam("admin", "name"));
         when(userParamsService.userDao.getUserForLogin("lolek")).thenReturn(null);
-        Assert.assertEquals(0, userParamsService.setUserParam("lolek", "name", "jkowalski"));
-        Assert.assertEquals(0, userParamsService.setUserParam(null, "name", "jkowalski"));
+        Assert.assertEquals(1, userParamsService.setUserParam("lolek", "name", "jkowalski"));
+        Assert.assertEquals(1, userParamsService.setUserParam(null, "name", "jkowalski"));
 
     }
 

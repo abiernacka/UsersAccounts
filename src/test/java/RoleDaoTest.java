@@ -41,6 +41,24 @@ public class RoleDaoTest {
         Assert.assertEquals(0, roles.size());
     }
 
+    @Test
+    @Transactional
+    public void testGetRoleByName() {
+        Role role = new Role();
+        role.setName("ROLE1");
+        roleDao.save(role);
+        Role role2 = new Role();
+        role2.setName("ROLE2");
+        roleDao.save(role2);
+
+        Role result = roleDao.getRoleForName("ADMIN");
+        Assert.assertNull(result);
+
+        result = roleDao.getRoleForName("ROLE1");
+        Assert.assertNotNull(result);
+        Assert.assertEquals("ROLE1", result.getName());
+    }
+
     public void setRoleDao(RoleDao roleDao) {
         this.roleDao = roleDao;
     }

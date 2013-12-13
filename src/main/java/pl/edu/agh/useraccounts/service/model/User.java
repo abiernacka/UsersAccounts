@@ -20,11 +20,8 @@ import java.util.List;
 @Entity
 public class User extends BaseEntity {
 
-    @Column(name = "FIRST_NAME")
-    private String firstName;
-
-    @Column(name = "LAST_NAME")
-    private String lastName;
+    @Column(name = "LOGIN")
+    private String login;
 
     @Column(name = "EMAIL")
     private String email;
@@ -36,20 +33,12 @@ public class User extends BaseEntity {
     @OneToMany
     private List<Role> roles = new ArrayList<Role>();
 
-    public String getFirstName() {
-        return firstName;
+    public String getLogin() {
+        return login;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getEmail() {

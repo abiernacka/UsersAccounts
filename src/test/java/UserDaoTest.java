@@ -36,8 +36,6 @@ public class UserDaoTest {
         Assert.assertEquals(0, userDao.getAllUsers().size());
         User user = new User();
         user.setEmail("test@test.pl");
-        user.setFirstName("John");
-        user.setLastName("Foobar");
 
         userDao.save(user);
         List<User> users = userDao.getAllUsers();
@@ -67,8 +65,6 @@ public class UserDaoTest {
 
         User user = new User();
         user.setEmail("test@test.pl");
-        user.setFirstName("John");
-        user.setLastName("Foobar");
 
         user.getParameters().getMap().put("age", "18");
         userDao.save(user);
@@ -76,6 +72,22 @@ public class UserDaoTest {
         user = userDao.getAllUsers().get(0);
         Parameters params = user.getParameters();
         Assert.assertEquals("18", params.getMap().get("age"));
+    }
+
+    @Test
+    @Transactional
+    public void testGetUserForLogin() {
+        User user = new User();
+        user.setEmail("user@login.for");
+        user.setLogin("foobar");
+        userDao.save(user);
+
+        User result = userDao.getUserForLogin("barfoo");
+        Assert.assertNull(result);
+
+        result = userDao.getUserForLogin("foobar");
+        Assert.assertNotNull(result);
+        Assert.assertEquals("foobar", result.getLogin());
     }
 
     public void setRoleDao(RoleDao roleDao) {

@@ -35,7 +35,12 @@ public class RoleDaoBean extends BaseDaoBean<Role> implements RoleDao {
 
     @Override
     public Role getRoleForName(String name) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        List<Role> roles = getSessionFactory().getCurrentSession().createQuery("from " + Role.class.getName() + " r where r.name = '" + name + "'").list();
+        Role role = null;
+        if(roles != null && !roles.isEmpty()) {
+            role = roles.get(0);
+        }
+        return role;
     }
 
 }

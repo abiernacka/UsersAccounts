@@ -25,6 +25,17 @@ public class User extends BaseEntity {
 
     @Column(name = "EMAIL")
     private String email;
+    
+    @Column(name = "PASSWORD")
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @OneToOne
     @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})

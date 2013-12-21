@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+
+    <context:annotation-config />
+    <tx:annotation-driven/>
 
     <bean id="roleServiceBean" class="pl.edu.agh.useraccounts.service.RoleServiceImpl">
     </bean>
@@ -11,6 +17,14 @@
     </bean>
 
     <bean id="userParamsServiceBean" class="pl.edu.agh.useraccounts.service.UsersParametersServiceImpl">
+    </bean>
+
+    <bean id="roleDao" class="pl.edu.agh.useraccounts.service.dao.RoleDaoBean">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="userDao" class="pl.edu.agh.useraccounts.service.dao.UserDaoBean">
+        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
     <jaxws:endpoint id="roleService" implementor="#roleServiceBean" address="/RoleService"/>

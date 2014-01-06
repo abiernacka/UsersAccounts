@@ -92,7 +92,6 @@ public class RoleServiceImpl implements RoleService{
                 return 0;
             }
         }
-        roles.add(role);
         return 3;         //user nie miał danej roli
     }
 

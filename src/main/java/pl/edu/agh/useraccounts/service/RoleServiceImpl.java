@@ -45,9 +45,7 @@ public class RoleServiceImpl implements RoleService{
             return 1;
         }
         if(roleDao.getRoleForName(roleName) != null) {
-            Role role = new Role();
-            role.setName(roleName);
-            roleDao.delete(role);
+            roleDao.delete(roleDao.getRoleForName(roleName));
             return 0;
         } else {
             return 1;    //rola nie istnieje

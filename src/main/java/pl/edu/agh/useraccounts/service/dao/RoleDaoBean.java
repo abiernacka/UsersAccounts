@@ -13,7 +13,6 @@ import java.util.List;
  * Time: 13:33
  * To change this template use File | Settings | File Templates.
  */
-@Transactional
 public class RoleDaoBean extends BaseDaoBean<Role> implements RoleDao {
 
     public RoleDaoBean() {

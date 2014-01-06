@@ -1,6 +1,7 @@
 package pl.edu.agh.useraccounts.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import pl.edu.agh.useraccounts.service.dao.RoleDao;
 import pl.edu.agh.useraccounts.service.dao.UserDao;
 import pl.edu.agh.useraccounts.service.exceptions.UserException;
@@ -15,6 +16,7 @@ import java.util.List;
  * Implementacja serwisu zarządzania rolami użytkownika
  */
 @WebService(endpointInterface = "pl.edu.agh.useraccounts.service.RoleService")
+@Transactional
 public class RoleServiceImpl implements RoleService{
 
     @Autowired
@@ -45,9 +47,7 @@ public class RoleServiceImpl implements RoleService{
             return 1;
         }
         if(roleDao.getRoleForName(roleName) != null) {
-            Role role = new Role();
-            role.setName(roleName);
-            roleDao.delete(role);
+            roleDao.delete(roleDao.getRoleForName(roleName));
             return 0;
         } else {
             return 1;    //rola nie istnieje
@@ -110,7 +110,9 @@ public class RoleServiceImpl implements RoleService{
     }
 
     @Override
+    @Transactional
     public List<String> getAllRoles() {
+        System.out.println("getAkkRikes " + roleDao);
         return roleDao.getAllRoles();
     }
 }

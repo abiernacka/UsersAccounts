@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService{
             return 1;
         
         //tu jakies smtp
-        //sendMain(u.getEmail(), u.getPassword(), u.getLogin());
+        sendMain(u.getEmail(), u.getPassword(), u.getLogin());
 
         return 0;
     }

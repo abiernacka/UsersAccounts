@@ -17,7 +17,7 @@ import java.util.List;
  * Time: 15:58
  * To change this template use File | Settings | File Templates.
  */
-@Entity
+@Entity(name = "USERS")
 public class User extends BaseEntity {
 
     @Column(name = "LOGIN")

@@ -14,6 +14,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import pl.edu.agh.useraccounts.service.dao.UserDao;
 import pl.edu.agh.useraccounts.service.model.User;
 
@@ -21,6 +22,7 @@ import pl.edu.agh.useraccounts.service.model.User;
  *Implementacja serwisu zarządzania kontem użytkownika
  */
 @WebService(endpointInterface = "pl.edu.agh.useraccounts.service.UserService")
+@Transactional
 public class UserServiceImpl implements UserService{
     
     @Autowired

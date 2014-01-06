@@ -17,7 +17,7 @@
 
     <mvc:annotation-driven />
 
-    <context:component-scan base-package="pl.edu.agh.um.controllers" />
+    <!--<context:component-scan base-package="pl.edu.agh.useraccounts.service" />-->
 
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 

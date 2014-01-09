@@ -27,6 +27,10 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
+    <bean id="logDao" class="pl.edu.agh.useraccounts.service.dao.LogEntryDaoBean">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
     <jaxws:endpoint id="roleService" implementor="#roleServiceBean" address="/RoleService"/>
     <jaxws:endpoint id="userService" implementor="#userServiceBean" address="/UserService"/>
     <jaxws:endpoint id="UsersParametersService" implementor="#userParamsServiceBean" address="/UsersParametersService"/>

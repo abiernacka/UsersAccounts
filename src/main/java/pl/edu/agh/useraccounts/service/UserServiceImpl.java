@@ -221,7 +221,7 @@ public class UserServiceImpl implements UserService{
             message.setSubject("Przypomnienie hasla dla "+login);
             message.setText(pass);
             
-            Transport.send(message);
+//            Transport.send(message);
         }
         catch(MessagingException mex) {
             mex.printStackTrace();

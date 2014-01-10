@@ -36,10 +36,17 @@ public class UserDaoTest {
         Assert.assertEquals(0, userDao.getAllUsers().size());
         User user = new User();
         user.setEmail("test@test.pl");
+        user.setLogin("Testerek");
+        user.setPassword("HasloDoTestow");
 
         userDao.save(user);
         List<User> users = userDao.getAllUsers();
         Assert.assertEquals(1, users.size());
+        
+        Assert.assertEquals("Testerek", users.get(0).getLogin());
+        Assert.assertEquals("test@test.pl", users.get(0).getEmail());
+        Assert.assertEquals("HasloDoTestow", users.get(0).getPassword());
+        
         Assert.assertNotNull(users.get(0).getRoles());
         Assert.assertEquals(0, users.get(0).getRoles().size());
 

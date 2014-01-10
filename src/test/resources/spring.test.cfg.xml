@@ -40,4 +40,8 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
+    <bean id="logDao" class="pl.edu.agh.useraccounts.service.dao.LogEntryDaoBean">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
 </beans>

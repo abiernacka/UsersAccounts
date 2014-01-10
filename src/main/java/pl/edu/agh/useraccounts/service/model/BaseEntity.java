@@ -20,7 +20,7 @@ public abstract class BaseEntity {
     private Long id;
 
     @Column(name = "CREATED_AT")
-    private Date creationDate;
+    private Date creationDate = new Date();
 
     @Column(name = "MODIFIED_AT")
     private Date modificationDate;
@@ -44,16 +44,8 @@ public abstract class BaseEntity {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public Date getModificationDate() {
         return modificationDate;
-    }
-
-    public void setModificationDate(Date modificationDate) {
-        this.modificationDate = modificationDate;
     }
 
     public String getModifiedBy() {
@@ -70,5 +62,10 @@ public abstract class BaseEntity {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    @PreUpdate
+    public void setLastModification() {
+        this.modificationDate = new Date();
     }
 }

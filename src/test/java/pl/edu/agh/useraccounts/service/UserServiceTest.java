@@ -79,6 +79,7 @@ public class UserServiceTest {
         User u = new User();
         u.setPassword("qwerty");
         u.setLogin("jkowalski");
+        u.setEmail("jkowalski@userapp.agh.edu.pl");
         
         when(usi.userDao.getUserForLogin("jkowalski")).thenReturn(null).thenReturn(u);
         

@@ -30,6 +30,7 @@ public class UserParametersServiceTest {
     public void getUserParamTest() throws UserException {
         UsersParametersServiceImpl userParamsService = new UsersParametersServiceImpl();
         userParamsService.userDao =  mock(UserDao.class);
+        userParamsService.logDao = mock(LogEntryDao.class);
         User userHasParams = new User();
         Parameters parameters = new Parameters();
         HashMap<String, String> map = new HashMap<String, String>();
@@ -65,6 +66,7 @@ public class UserParametersServiceTest {
     public void getUserParams() throws UserException {
         UsersParametersServiceImpl userParamsService = new UsersParametersServiceImpl();
         userParamsService.userDao =  mock(UserDao.class);
+        userParamsService.logDao = mock(LogEntryDao.class);
         User userHasParams = new User();
         Parameters parameters = new Parameters();
         HashMap<String, String> map = new HashMap<String, String>();
@@ -90,6 +92,7 @@ public class UserParametersServiceTest {
     public void setUserParamTest() throws UserException {
         UsersParametersServiceImpl userParamsService = new UsersParametersServiceImpl();
         userParamsService.userDao =  mock(UserDao.class);
+        userParamsService.logDao = mock(LogEntryDao.class);
         User user = new User();
         when(userParamsService.userDao.getUserForLogin("admin")).thenReturn(user);
         Assert.assertEquals(0, userParamsService.setUserParam("admin", "name", "jkowalski"));

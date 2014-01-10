@@ -11,6 +11,7 @@ import java.util.List;
 import junit.framework.Assert;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
+import pl.edu.agh.useraccounts.service.dao.LogEntryDao;
 import pl.edu.agh.useraccounts.service.dao.RoleDao;
 import pl.edu.agh.useraccounts.service.dao.UserDao;
 import pl.edu.agh.useraccounts.service.model.User;
@@ -25,6 +26,7 @@ public class UserServiceTest {
     public void registerTest() {
         UserServiceImpl usi = new UserServiceImpl();
         usi.userDao = mock(UserDao.class);
+        usi.logDao = mock(LogEntryDao.class);
         when(usi.userDao.getUserForLogin("jkowalski")).thenReturn(null).thenReturn(new User());
         Assert.assertEquals(0, usi.register("jkowalski", "kowalski@gmail.com", "qWeRtY1234"));
         Assert.assertEquals(1, usi.register("jkow@alski1", "kowalski@gmail.com", "qWeRtY.1234"));
@@ -44,6 +46,7 @@ public class UserServiceTest {
     public void authorizationTest(){
         UserServiceImpl usi = new UserServiceImpl();
         usi.userDao = mock(UserDao.class);
+        usi.logDao = mock(LogEntryDao.class);
         
         User u = new User();
         u.setPassword("qwerty");
@@ -59,6 +62,7 @@ public class UserServiceTest {
     @Test
     public void getUsersTest(){
         UserServiceImpl userService = new UserServiceImpl();
+        userService.logDao = mock(LogEntryDao.class);
         
         List<User> u = new ArrayList<User>();
         
@@ -74,6 +78,7 @@ public class UserServiceTest {
     @Test
     public void remindPasswordTest(){
         UserServiceImpl usi = new UserServiceImpl();
+        usi.logDao = mock(LogEntryDao.class);
         usi.userDao = mock(UserDao.class);
         
         User u = new User();
@@ -91,6 +96,7 @@ public class UserServiceTest {
     public void changePasswordTest(){
         UserServiceImpl usi = new UserServiceImpl();
         usi.userDao = mock (UserDao.class);
+        usi.logDao = mock(LogEntryDao.class);
         
         User u = new User();
         u.setPassword("qwertyuiop");
@@ -109,6 +115,7 @@ public class UserServiceTest {
     public void changeEmailTest(){
         UserServiceImpl usi = new UserServiceImpl();
         usi.userDao = mock (UserDao.class);
+        usi.logDao = mock(LogEntryDao.class);
         
         User u = new User();
         u.setPassword("qwertyuiop");
@@ -126,6 +133,7 @@ public class UserServiceTest {
     public void removeUserTest(){
         UserServiceImpl usi = new UserServiceImpl();
         usi.userDao = mock (UserDao.class);
+        usi.logDao = mock(LogEntryDao.class);
         
         User u = new User();
         u.setPassword("qwertyuiop");

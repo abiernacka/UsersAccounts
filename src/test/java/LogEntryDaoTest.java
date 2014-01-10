@@ -39,12 +39,13 @@ public class LogEntryDaoTest {
 
         LogEntry logEntry1 = new LogEntry(LOG1);
         logDao.save(logEntry1);
-        System.out.println(); //println added to wait a few ms before creating next log
+        System.out.println(logEntry1.getCreationDate()); //println added to wait a few ms before creating next log
         LogEntry logEntry2 = new LogEntry(LOG2);
         logDao.save(logEntry2);
-        System.out.println();
+        System.out.println(logEntry2.getCreationDate());
         LogEntry logEntry3 = new LogEntry(LOG3);
         logDao.save(logEntry3);
+        System.out.println(logEntry3.getCreationDate());
 
         List<LogEntry> logs = logDao.getAllLogsSortedAscByDate();
         Assert.assertEquals(3, logs.size());

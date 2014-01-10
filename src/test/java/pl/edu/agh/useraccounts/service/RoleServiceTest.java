@@ -43,6 +43,7 @@ public class RoleServiceTest {
     public void removeRoleTest() {
         RoleServiceImpl roleService = new RoleServiceImpl();
         roleService.roleDao =  mock(RoleDao.class);
+        roleService.logDao = mock(LogEntryDao.class);
         when(roleService.roleDao.getRoleForName("administrator")).thenReturn(new Role()).thenReturn(null);
         Assert.assertEquals(0, roleService.removeRole("administrator"));
         Assert.assertEquals(1, roleService.removeRole("administrator"));
@@ -55,6 +56,7 @@ public class RoleServiceTest {
         RoleServiceImpl roleService = new RoleServiceImpl();
         roleService.roleDao =  mock(RoleDao.class);
         roleService.userDao =  mock(UserDao.class);
+        roleService.logDao = mock(LogEntryDao.class);
         User userHasRole = new User();
         List<Role> list = new ArrayList<Role>();
         Role role = new Role();
@@ -84,6 +86,7 @@ public class RoleServiceTest {
         RoleServiceImpl roleService = new RoleServiceImpl();
         roleService.roleDao =  mock(RoleDao.class);
         roleService.userDao =  mock(UserDao.class);
+        roleService.logDao = mock(LogEntryDao.class);
         User userHasRole = new User();
         List<Role> list = new ArrayList<Role>();
         Role role = new Role();
@@ -119,6 +122,7 @@ public class RoleServiceTest {
       roles.add("super user");
       roleService.roleDao =  mock(RoleDao.class);
       roleService.userDao =  mock(UserDao.class);
+      roleService.logDao = mock(LogEntryDao.class);
       User userHasRole = new User();
       List<Role> list = new ArrayList<Role>();
       Role role1 = new Role();
@@ -139,6 +143,7 @@ public class RoleServiceTest {
     @Test
     public void  getAllRolesTest() {
         RoleServiceImpl roleService = new RoleServiceImpl();
+        roleService.logDao = mock(LogEntryDao.class);
         List<String> roles = new ArrayList<String>();
         roles.add("admin");
         roles.add("super user");

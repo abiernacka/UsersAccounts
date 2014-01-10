@@ -130,4 +130,11 @@ public class UsersParametersServiceImpl implements UsersParametersService {
         return logs;
     }
 
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    public void setLogDao(LogEntryDao logDao) {
+        this.logDao = logDao;
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import pl.edu.agh.useraccounts.service.dao.LogEntryDao;
 import pl.edu.agh.useraccounts.service.dao.RoleDao;
 import pl.edu.agh.useraccounts.service.dao.UserDao;
 import pl.edu.agh.useraccounts.service.exceptions.UserException;
@@ -33,14 +34,19 @@ public class RoleServiceCompleteTest {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    LogEntryDao logDao;
+
     @Test
     @Transactional
     public void test1() throws UserException {
         RoleServiceImpl roleService = new RoleServiceImpl();
         UserServiceImpl userService = new UserServiceImpl();
         userService.userDao = userDao;
+        userService.setLogDao(logDao);
         roleService.roleDao =  roleDao;
         roleService.userDao =  userDao;
+        roleService.setLogDao(logDao);
         Assert.assertEquals(0, userService.register("admin123", "admin@gmail.com", "Hqfksjdj123"));
         Assert.assertEquals(0, roleService.getAllRoles().size());
         Assert.assertEquals(0, roleService.createRole("admin"));
@@ -68,5 +74,9 @@ public class RoleServiceCompleteTest {
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
+    }
+
+    public void setLogDao(LogEntryDao logDao) {
+        this.logDao = logDao;
     }
 }

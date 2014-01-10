@@ -315,4 +315,12 @@ public class UserServiceImpl implements UserService{
             mex.printStackTrace();
         }
     }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    public void setLogDao(LogEntryDao logDao) {
+        this.logDao = logDao;
+    }
 }

@@ -177,6 +177,10 @@ public class RoleServiceImpl implements RoleService{
         logDao.save(log);
         return roleDao.getAllRoles();
     }
+
+    public void setLogDao(LogEntryDao logDao) {
+        this.logDao = logDao;
+    }
 }
 
 

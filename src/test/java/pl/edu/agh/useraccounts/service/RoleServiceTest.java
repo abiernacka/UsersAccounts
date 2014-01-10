@@ -3,6 +3,7 @@ package pl.edu.agh.useraccounts.service;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import pl.edu.agh.useraccounts.service.dao.LogEntryDao;
 import pl.edu.agh.useraccounts.service.dao.RoleDao;
 import junit.framework.Assert;
 import pl.edu.agh.useraccounts.service.dao.UserDao;
@@ -30,6 +31,8 @@ public class RoleServiceTest {
         RoleServiceImpl roleService = new RoleServiceImpl();
         roleService.roleDao =  mock(RoleDao.class);
         when(roleService.roleDao.getRoleForName("admin")).thenReturn(null).thenReturn(new Role());
+        roleService.logDao = mock(LogEntryDao.class);
+
         Assert.assertEquals(0, roleService.createRole("admin"));
         Assert.assertEquals(1, roleService.createRole("admin"));
         Assert.assertEquals(1, roleService.createRole(""));

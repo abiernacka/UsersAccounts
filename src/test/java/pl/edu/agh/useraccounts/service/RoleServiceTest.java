@@ -31,9 +31,11 @@ public class RoleServiceTest {
         RoleServiceImpl roleService = new RoleServiceImpl();
         roleService.roleDao =  mock(RoleDao.class);
         when(roleService.roleDao.getRoleForName("admin")).thenReturn(null).thenReturn(new Role());
+        when(roleService.roleDao.getRoleForName("moderator")).thenReturn(null);
         roleService.logDao = mock(LogEntryDao.class);
 
         Assert.assertEquals(0, roleService.createRole("admin"));
+        Assert.assertEquals(0, roleService.createRole("moderator"));
         Assert.assertEquals(1, roleService.createRole("admin"));
         Assert.assertEquals(1, roleService.createRole(""));
         Assert.assertEquals(1, roleService.createRole(null));
@@ -61,17 +63,21 @@ public class RoleServiceTest {
         List<Role> list = new ArrayList<Role>();
         Role role = new Role();
         role.setName("administrator");
+        Role roleModer = new Role();
+        roleModer.setName("moderator");
         list.add(role);
         userHasRole.setRoles(list);
         User userHasNotRole = new User();
-        when(roleService.userDao.getUserForLogin("admin")).thenReturn(userHasNotRole).thenReturn(userHasNotRole)
+        when(roleService.userDao.getUserForLogin("admin")).thenReturn(userHasNotRole).thenReturn(userHasNotRole).thenReturn(userHasNotRole)
                 .thenReturn(userHasNotRole).thenReturn(userHasNotRole).thenReturn(userHasRole).thenReturn(userHasRole)
                 .thenReturn(userHasRole).thenReturn(userHasRole);
         when(roleService.userDao.getUserForLogin("linda")).thenReturn(null);
         when(roleService.roleDao.getRoleForName("administrator")).thenReturn(role).thenReturn(null);
-        when(roleService.roleDao.getRoleForName("moderator")).thenReturn(null);
+        when(roleService.roleDao.getRoleForName("moderator")).thenReturn(role);
+        when(roleService.roleDao.getRoleForName("moderator")).thenReturn(roleModer);
 
         Assert.assertEquals(0, roleService.addRole("admin", "administrator"));
+        Assert.assertEquals(0, roleService.addRole("admin", "moderator"));
         Assert.assertEquals(2, roleService.addRole("admin", "administrator"));
         Assert.assertEquals(1, roleService.addRole("linda", "moderator"));
         Assert.assertEquals(1, roleService.addRole("linda", null));
@@ -91,17 +97,21 @@ public class RoleServiceTest {
         List<Role> list = new ArrayList<Role>();
         Role role = new Role();
         role.setName("administrator");
+        Role roleModer = new Role();
+        roleModer.setName("moderator");
         list.add(role);
+        list.add(roleModer);
         userHasRole.setRoles(list);
         User userHasNotRole = new User();
-        when(roleService.userDao.getUserForLogin("admin")).thenReturn(userHasRole).thenReturn(userHasNotRole)
+        when(roleService.userDao.getUserForLogin("admin")).thenReturn(userHasRole).thenReturn(userHasRole).thenReturn(userHasNotRole)
                 .thenReturn(userHasNotRole).thenReturn(userHasNotRole).thenReturn(userHasRole).thenReturn(userHasRole)
                 .thenReturn(userHasRole).thenReturn(userHasRole);
         when(roleService.userDao.getUserForLogin("linda")).thenReturn(null);
         when(roleService.roleDao.getRoleForName("administrator")).thenReturn(role).thenReturn(role);
-        when(roleService.roleDao.getRoleForName("moderator")).thenReturn(null);
+        when(roleService.roleDao.getRoleForName("moderator")).thenReturn(roleModer).thenReturn(null);
 
         Assert.assertEquals(0, roleService.revokeRole("admin", "administrator"));
+        Assert.assertEquals(0, roleService.revokeRole("admin", "moderator"));
         Assert.assertEquals(3, roleService.revokeRole("admin", "administrator"));
         Assert.assertEquals(1, roleService.revokeRole("linda", "moderator"));
         Assert.assertEquals(1, roleService.revokeRole("linda", null));
@@ -133,8 +143,9 @@ public class RoleServiceTest {
       list.add(role2);
       userHasRole.setRoles(list);
       when(roleService.userDao.getUserForLogin("admin")).thenReturn(userHasRole);
-      when(roleService.userDao.getUserForLogin("linda")).thenReturn(null);
+      when(roleService.userDao.getUserForLogin("linda")).thenReturn(new User()).thenReturn(null);
       Assert.assertEquals(2, roleService.getUserRoles("admin").size());
+      Assert.assertEquals(0, roleService.getUserRoles("linda").size());
       exception.expect(UserException.class);
       roleService.getUserRoles("linda");
 

@@ -93,6 +93,12 @@ public class UsersParametersServiceImpl implements UsersParametersService {
             logDao.save(log);
             return 1;      //nie ma takiego usera;
         }
+        if(paramKey == null || paramKey.length() == 0) {
+            logString += " Próba nieudana (1): niepoprawny klucz.";
+            log.setLog(logString);
+            logDao.save(log);
+            return 1;
+        }
         Parameters parameters = user.getParameters();
         if(parameters == null) {
            parameters = new Parameters();

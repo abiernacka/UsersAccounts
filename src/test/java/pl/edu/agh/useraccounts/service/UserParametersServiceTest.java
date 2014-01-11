@@ -27,21 +27,21 @@ import static org.mockito.Mockito.when;
  */
 public class UserParametersServiceTest {
     @Test
-    public void getUserParamTest() throws UserException {
+    public void getUserParamTest1() throws UserException {
         UsersParametersServiceImpl userParamsService = new UsersParametersServiceImpl();
         userParamsService.userDao =  mock(UserDao.class);
         userParamsService.logDao = mock(LogEntryDao.class);
         User userHasParams = new User();
         Parameters parameters = new Parameters();
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("name", "jkowalski");
+        map.put("name", "kowalski");
         parameters.setMap(map);
         userHasParams.setParameters(parameters);
-        when(userParamsService.userDao.getUserForLogin("admin")).thenReturn(userHasParams);
-        Assert.assertEquals("jkowalski", userParamsService.getUserParam("admin", "name"));
+        when(userParamsService.userDao.getUserForLogin("jkowalski")).thenReturn(userHasParams);
+        Assert.assertEquals("kowalski", userParamsService.getUserParam("jkowalski", "name"));
         when(userParamsService.userDao.getUserForLogin("lolek")).thenReturn(null);
         try {
-            userParamsService.getUserParam("admin", "surname");
+            userParamsService.getUserParam("jkowalski", "surname");
         } catch (UserException e) {
              Assert.assertEquals(2, e.getExceptionCode());
         }
@@ -51,12 +51,47 @@ public class UserParametersServiceTest {
             Assert.assertEquals(1, e.getExceptionCode());
         }
         try {
-            userParamsService.getUserParam("admin", null);
+            userParamsService.getUserParam("jkowalski", null);
         } catch (UserException e) {
             Assert.assertEquals(2, e.getExceptionCode());
         }
         try {
-            userParamsService.getUserParam("lolek", "name");
+            userParamsService.getUserParam("tomek", "name");
+        } catch (UserException e) {
+            Assert.assertEquals(1, e.getExceptionCode());
+        }
+    }
+    @Test
+    public void getUserParamTest2() throws UserException {
+        UsersParametersServiceImpl userParamsService = new UsersParametersServiceImpl();
+        userParamsService.userDao =  mock(UserDao.class);
+        userParamsService.logDao = mock(LogEntryDao.class);
+        User userHasParams = new User();
+        Parameters parameters = new Parameters();
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("surname", "jan");
+        parameters.setMap(map);
+        userHasParams.setParameters(parameters);
+        when(userParamsService.userDao.getUserForLogin("jkowalski")).thenReturn(userHasParams);
+        Assert.assertEquals("jan", userParamsService.getUserParam("jkowalski", "surname"));
+        when(userParamsService.userDao.getUserForLogin("lolek")).thenReturn(null);
+        try {
+            userParamsService.getUserParam("jkowalski", "name");
+        } catch (UserException e) {
+            Assert.assertEquals(2, e.getExceptionCode());
+        }
+        try {
+            userParamsService.getUserParam("", "surname");
+        } catch (UserException e) {
+            Assert.assertEquals(1, e.getExceptionCode());
+        }
+        try {
+            userParamsService.getUserParam("jkowalski", null);
+        } catch (UserException e) {
+            Assert.assertEquals(2, e.getExceptionCode());
+        }
+        try {
+            userParamsService.getUserParam("bolek", "surname");
         } catch (UserException e) {
             Assert.assertEquals(1, e.getExceptionCode());
         }
@@ -89,17 +124,20 @@ public class UserParametersServiceTest {
     }
 
     @Test
-    public void setUserParamTest() throws UserException {
+    public void setUserParamTest1() throws UserException {
         UsersParametersServiceImpl userParamsService = new UsersParametersServiceImpl();
         userParamsService.userDao =  mock(UserDao.class);
         userParamsService.logDao = mock(LogEntryDao.class);
         User user = new User();
         when(userParamsService.userDao.getUserForLogin("admin")).thenReturn(user);
-        Assert.assertEquals(0, userParamsService.setUserParam("admin", "name", "jkowalski"));
-        Assert.assertEquals("jkowalski", userParamsService.getUserParam("admin", "name"));
-        when(userParamsService.userDao.getUserForLogin("lolek")).thenReturn(null);
-        Assert.assertEquals(1, userParamsService.setUserParam("lolek", "name", "jkowalski"));
+        Assert.assertEquals(0, userParamsService.setUserParam("admin", "name", "kowalski"));
+        Assert.assertEquals(0, userParamsService.setUserParam("admin", "surname", "jan"));
+        Assert.assertEquals("kowalski", userParamsService.getUserParam("admin", "name"));
+        when(userParamsService.userDao.getUserForLogin("tomek")).thenReturn(null);
+        Assert.assertEquals(1, userParamsService.setUserParam("tomek", "name", "jkowalski"));
         Assert.assertEquals(1, userParamsService.setUserParam(null, "name", "jkowalski"));
+        Assert.assertEquals(1, userParamsService.setUserParam("admin", null, "jan"));
+        Assert.assertEquals(1, userParamsService.setUserParam("admin", "", "jan"));
 
     }
 
